@@ -19,5 +19,4 @@ before_install:
 
 script:
   - dotnet restore
-  - pushd src/Tmds.DBus && dotnet pack -c Release && popd
-  - pushd test/Tmds.DBus.Tests && dotnet test && popd
+  
