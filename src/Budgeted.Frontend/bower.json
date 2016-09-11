@@ -1,5 +1,5 @@
 {
-  "name": "Budgeted.Frontend",
+  "name": "budgeted.frontend",
   "homepage": "https://github.com/rocco337/budgeted",
   "authors": [
     "rocco337 <roko.bobic@gmail.com>"
@@ -17,5 +17,8 @@
   ],
   "dependencies": {
     "pure": "^0.6.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
   }
 }
