@@ -25,6 +25,8 @@ target
 .target
 /*/bin/
 
+out
+
 RUNNING_PID
 
 
