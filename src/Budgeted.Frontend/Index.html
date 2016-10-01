@@ -9,21 +9,25 @@
 
     <link rel="stylesheet" href="out/bundle.css">
     
+     <!-- 1. Load libraries -->
+     <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
 
     
 
 </head>
 <body>
 
-
-
-
-
-
-
-
-
 <div class="header">
+     
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
         <a class="pure-menu-heading" href="">Your Sitzsss</a>
 
@@ -37,7 +41,7 @@
 
 <div class="splash-container">
     <div class="splash">
-        <h1 class="splash-head">Big Bosssld Text</h1>
+        <h1 class="splash-head"><my-app>Loading...</my-app></h1>
         <p class="splash-subhead">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         </p>

@@ -31,17 +31,18 @@ RUNNING_PID
 
 
 local.sbt
-
-node_modules
 screenshots
-
 
 .eslintcache
 
-
-
 *-spec-runner.html
 
-
 bower_components
+typings
+app/**/*.js
+app/**/*.map
+node_modules
+jspm_package
+
+
 
