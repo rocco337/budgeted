@@ -37,6 +37,11 @@ module.exports = {
         test: /\.css$/,
         include: helpers.root('assets','assets/marketing.css'),
         loader: 'raw'
+      },
+      {
+        test: /\.css$/,
+        include: helpers.root('assets','assets/side-menu.css'),
+        loader: 'raw'
       }
     ]
   },
