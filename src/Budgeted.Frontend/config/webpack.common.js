@@ -7,7 +7,8 @@ module.exports = {
   entry: {
     'polyfills': './polyfills.ts',
     'vendor': './vendor.ts',
-    'app': './app/main.ts'
+    'app': './app/main.ts',
+    'budgeted-app': './budgeted-app/main.ts'
   },
 
   resolve: {
@@ -41,13 +42,23 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills']
-    }),
-
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: ['budgeted-app', 'app', 'vendor', 'polyfills']
+    // }),
+   
     new HtmlWebpackPlugin({
-      template: 'Index.html'
-    })
+      inject: true,
+      chunks:['budgeted-app', 'vendor', 'polyfills'],        
+      template: 'budgeted.html',
+      filename:'budgeted.html'
+      
+    }),
+     new HtmlWebpackPlugin({
+      inject: true,
+      chunks:['app', 'vendor', 'polyfills'],
+      template: 'Index.html',
+      filename:'index.html'
+    }),
   ]
 };
 
