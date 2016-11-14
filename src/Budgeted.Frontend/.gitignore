@@ -45,4 +45,7 @@ node_modules
 jspm_package
 
 
-ettings.json
+settings.json
+**/.vscode
+
+

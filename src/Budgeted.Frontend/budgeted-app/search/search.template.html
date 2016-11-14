@@ -1,0 +1,40 @@
+<div class="header">
+    <form class="pure-form">
+        <fieldset>
+            <input type="text" placeholder="Search">
+        </fieldset>
+    </form>
+
+</div>
+
+<div class="content" style="max-width:none;">
+    <div class="pure-g">
+        <div class="pure-u-1-1">
+            <table class="pure-table pure-table-horizontal pure-table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Tags</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let transaction of Transactions">
+                        <td>{{transaction.Id}}</td>
+                        <td>{{transaction.Amount}}</td>
+                        <td>{{transaction.Description}}</td>
+                        <td>{{transaction.DateCreated}}</td>
+                        <td>
+                            <span *ngFor="let tag of transaction.Tags">
+                                {{tag}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
