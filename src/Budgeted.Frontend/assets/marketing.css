@@ -281,3 +281,19 @@ a.pure-button-primary {
         font-size: 300%;
     }
 }
+
+.pure-table{
+    width:100%;
+}
+
+.no-border{
+    border:0 !important;
+}
+
+.no-bullets-list{
+    list-style: none !important;
+}
+
+.list-padding-left-15  li b{
+    padding-left: 15px;
+}

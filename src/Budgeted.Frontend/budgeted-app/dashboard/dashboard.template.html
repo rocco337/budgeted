@@ -1,0 +1,29 @@
+<ul class="no-bullets-list" style="padding-left:10px;">
+    <li>
+        Monthly
+        <ul class="no-bullets-list list-padding-left-15">
+                    <li>
+                        Spent:<b>{{dashboardModel.MonthlyStatus.Spent}}</b>
+                    </li>
+                    <li>
+                        Left:<b>{{dashboardModel.MonthlyStatus.Left}}</b>
+                    </li><li>
+                        Savings:<b>{{dashboardModel.MonthlyStatus.Savings}}</b>
+                    </li>
+        </ul>       
+    </li>
+</ul>
+
+
+
+<ul lass="no-bullets-list" style="padding-left:10px;">
+    <li>
+        Top consumers:
+        <ul class="no-bullets-list list-padding-left-15" >
+            <li *ngFor="let consumer of dashboardModel.TopConsumers">
+                {{consumer.Key}}: <b>{{consumer.Value}}</b>
+            </li>         
+        </ul>
+    </li>
+
+</ul>

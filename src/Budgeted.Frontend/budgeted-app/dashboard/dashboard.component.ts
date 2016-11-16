@@ -1,6 +1,22 @@
+import { DashboardService } from './dashboard.service';
 import { Component } from '@angular/core';
+import { DashboardModel,IDashboardService} from './entities'
+
 @Component({
-  selector: 'dashobard',
-  template: '<h1>Budgeted App</h1>'
+  selector: 'dashboard',
+  templateUrl: 'dashboard.template.html'
 })
-export class DashboardComponent { }
+export class DashboardComponent {
+  dashboardModel:DashboardModel;
+
+  constructor(dashboardService:IDashboardService){
+    this.dashboardModel = new DashboardModel();
+
+    this.dashboardModel.MonthlyStatus = dashboardService.getMonthlyStatus();    
+    this.dashboardModel.TopConsumers=dashboardService.getTopConsumers();    
+  }
+
+  
+ }
+
+ 
