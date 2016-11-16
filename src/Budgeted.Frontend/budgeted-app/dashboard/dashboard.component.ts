@@ -9,7 +9,7 @@ import { DashboardModel,IDashboardService} from './entities'
 export class DashboardComponent {
   dashboardModel:DashboardModel;
 
-  constructor(dashboardService:IDashboardService){
+  constructor(dashboardService:DashboardService){
     this.dashboardModel = new DashboardModel();
 
     this.dashboardModel.MonthlyStatus = dashboardService.getMonthlyStatus();    
