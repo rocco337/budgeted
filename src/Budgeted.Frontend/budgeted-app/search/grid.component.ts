@@ -7,7 +7,7 @@ import {BehaviorSubject} from 'rxjs/Rx';
     selector:'search',
     templateUrl:'search.template.html'
 })
-export class SearchComponent{
+export class GridComponent{
     Transactions:TransactionModel[]
     SearchTest:string;
     Loading=false;

@@ -4,13 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DashboardComponent }   from './dashboard/dashboard.component';
 import { DashboardService } from './dashboard/dashboard.service';
 import {SearchService} from './search/search.service'
-import {SearchComponent} from './search/search.component'
+import {GridComponent} from './search/grid.component'
 
 
 @NgModule({
   imports:      [ BrowserModule ],
-  declarations: [ DashboardComponent,SearchComponent ],
-  bootstrap:    [ DashboardComponent,SearchComponent ],
+  declarations: [ DashboardComponent,GridComponent ],
+  bootstrap:    [ DashboardComponent,GridComponent ],
   providers:[DashboardService,SearchService]
 })
 export class BudgetedModule { }
