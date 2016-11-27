@@ -1,6 +1,7 @@
 import {Component } from '@angular/core'
 import {SearchService} from './search.service'
 import {TransactionModel} from './entities'
+import {BehaviorSubject} from 'rxjs/Rx';
 
 @Component({
     selector:'search',
@@ -13,7 +14,8 @@ export class SearchComponent{
 
     constructor(searchSerivce:SearchService){
         this.Loading = true;
-        this.Transactions = searchSerivce.getLatest();
+        searchSerivce.transactions.subscribe(m=>this.Transactions = m);
+        searchSerivce.getLatest();
         this.Loading = false;
     }
 
