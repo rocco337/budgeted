@@ -5,7 +5,7 @@ import {BehaviorSubject} from 'rxjs/Rx';
 
 @Component({
     selector:'grid',
-    templateUrl:'search.template.html',    
+    templateUrl:'grid.template.html',    
 })
 export class GridComponent{
     Transactions:BehaviorSubject<TransactionModel[]>;

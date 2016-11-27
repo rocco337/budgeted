@@ -14,6 +14,7 @@ export class SearchComponent{
     
     input:string;
     searchService:SearchService;
+    
 
     constructor(searchService:SearchService) {
        this.searchService = searchService;        

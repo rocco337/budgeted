@@ -7,13 +7,15 @@ import { DashboardService } from './dashboard/dashboard.service';
 import {SearchService} from './search/search.service'
 import {GridComponent} from './search/grid.component'
 import {SearchComponent} from './search/search.component'
+import {TagsComponent} from './tags/tags.component'
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  imports:      [ BrowserModule,FormsModule ],
-  declarations: [ DashboardComponent,GridComponent,SearchComponent ],
-  bootstrap:    [ DashboardComponent,GridComponent,SearchComponent ],
+  imports:      [ BrowserModule,FormsModule,ReactiveFormsModule ],
+  declarations: [ DashboardComponent,GridComponent,SearchComponent,TagsComponent ],
+  bootstrap:    [ DashboardComponent,GridComponent,SearchComponent,TagsComponent ],
   providers:[DashboardService,SearchService]
 })
 export class BudgetedModule { }

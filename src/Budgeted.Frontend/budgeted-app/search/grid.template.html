@@ -23,7 +23,9 @@
 
                 <tbody>
                     <tr *ngFor="let transaction of Transactions | async">
-                        <td>{{transaction.Id}}</td>
+                        <td style="width:5px;">
+                            <input type="checkbox" name="transactions" />
+                        </td>
                         <td>{{transaction.Amount}}</td>
                         <td>{{transaction.Description}}</td>
                         <td>{{transaction.DateCreated}}</td>
@@ -31,7 +33,9 @@
                             <span *ngFor="let tag of transaction.Tags">
                                 {{tag}}
                             </span>
-                        </td>
+                            <add-tag></add-tag>                      
+                        
+                         </td>
                     </tr>
                 </tbody>
             </table>
