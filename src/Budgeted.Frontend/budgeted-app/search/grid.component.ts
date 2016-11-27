@@ -1,25 +1,21 @@
-import {Component } from '@angular/core'
+import {Component,ChangeDetectionStrategy } from '@angular/core'
 import {SearchService} from './search.service'
 import {TransactionModel} from './entities'
 import {BehaviorSubject} from 'rxjs/Rx';
 
 @Component({
-    selector:'search',
-    templateUrl:'search.template.html'
+    selector:'grid',
+    templateUrl:'search.template.html',    
 })
 export class GridComponent{
-    Transactions:TransactionModel[]
+    Transactions:BehaviorSubject<TransactionModel[]>;
     SearchTest:string;
     Loading=false;
 
-    constructor(searchSerivce:SearchService){
-        this.Loading = true;
-        searchSerivce.transactions.subscribe(m=>this.Transactions = m);
+    constructor(searchSerivce:SearchService){        
+        this.Transactions = searchSerivce.transactions;
         searchSerivce.getLatest();
-        this.Loading = false;
     }
 
-    DoSearch(){
 
-    }
 }

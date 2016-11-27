@@ -1,7 +1,7 @@
 <div class="header">
     <form class="pure-form">
         <fieldset>
-            <input type="text" placeholder="Search">
+            <search></search>
         </fieldset>
     </form>
 
@@ -22,7 +22,7 @@
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="let transaction of Transactions">
+                    <tr *ngFor="let transaction of Transactions | async">
                         <td>{{transaction.Id}}</td>
                         <td>{{transaction.Amount}}</td>
                         <td>{{transaction.Description}}</td>
