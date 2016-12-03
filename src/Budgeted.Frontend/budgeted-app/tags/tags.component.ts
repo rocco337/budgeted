@@ -8,11 +8,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output, Input } from 
     outputs: ['onAddTagEvent'],
     selector: 'add-tag',
     template: `
-                        <div style="display:inline-block;" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                          <a href="#" class="pure-menu-link"></a>
+                        <div style="display:inline-block; float:left;" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                          <a href="#" class="pure-menu-link" style="padding:0 10px;"></a>
                           <ul class="pure-menu-children" style="list-style:none;">
                             <li lass="pure-menu-item">
-                                <input type="text" [formControl]="term">                            
+                                <input type="text" [formControl]="term" (keydown.enter)="termAutoComplete(term.value)">                            
                             </li>
                             <li *ngIf="filteredTags.length===0">
                                 <a href="#" class="pure-menu-link" (click)="addAndCreate(term.value)">{{"New: " + term.value}}</a>                                
@@ -53,6 +53,18 @@ export class TagsComponent {
     
     addAndCreate(tag){
          this.addTag(tag);
+    }
+
+    termAutoComplete(term){
+        if(!term)
+            return;
+            
+        if(this.filteredTags.length===0){
+            this.addAndCreate(term);
+        }
+        else{
+            this.addTag(this.filteredTags[0]);            
+        }
     }
     
 }
