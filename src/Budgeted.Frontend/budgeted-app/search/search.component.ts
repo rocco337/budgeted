@@ -15,16 +15,7 @@ export class SearchComponent{
     
     input:string;
     searchService:SearchService;
-    
-    second=[
-            new TransactionModel(1,12.3,"Lidl","12.11.2016 12:34",["house"]),
-            new TransactionModel(1,12.3,"Lidl","12.11.2016 12:34",["house"]),
-            new TransactionModel(1,12.3,"Lidl","12.11.2016 12:34",["house"]),
-            new TransactionModel(1,12.3,"Lidl","12.11.2016 12:34",["house"]),
-            new TransactionModel(1,12.3,"Lidl","12.11.2016 12:34",["house"]),
-            new TransactionModel(1,12.3,"Lidl","12.11.2016 12:34",["house"]),           
-        ];
-
+  
     constructor(searchService:SearchService) {
        this.searchService = searchService;        
     }
