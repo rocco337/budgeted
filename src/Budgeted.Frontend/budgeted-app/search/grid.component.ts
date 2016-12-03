@@ -19,9 +19,13 @@ export class GridComponent {
         searchSerivce.getLatest();
     }
 
-    addTag(tag, transaction: TransactionModel) {
+    addTag(tag:string, transaction: TransactionModel) {
         if (transaction.Tags.indexOf(tag) === -1)
             transaction.Tags.push(tag);
+    }
+
+    removeTag(tag:string,transaction:TransactionModel){
+        transaction.Tags = transaction.Tags.filter(m=>m!=tag);
     }
 
 }

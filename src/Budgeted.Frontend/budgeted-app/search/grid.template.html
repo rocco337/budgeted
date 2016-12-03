@@ -33,7 +33,7 @@
                             <add-tag [transaction]="transaction" (onAddTagEvent)="addTag($event,transaction)"></add-tag>                           
                             
                             <span *ngFor="let tag of transaction.Tags">
-                                {{tag}}
+                                <a href="#" (click)="removeTag(tag,transaction)">{{tag}}</a>
                             </span>
                         </td>
                         <td>{{transaction.DateCreated}}</td>                        
