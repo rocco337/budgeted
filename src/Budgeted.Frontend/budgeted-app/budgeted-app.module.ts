@@ -10,12 +10,13 @@ import {SearchService} from './search/search.service'
 import {GridComponent} from './search/grid.component'
 import {SearchComponent} from './search/search.component'
 import {TagsComponent} from './tags/tags.component'
+import {SubmenuComponent} from './submenu/submenu.component'
 
 
 @NgModule({
   imports:      [ BrowserModule,FormsModule,ReactiveFormsModule,HttpModule ],
-  declarations: [ DashboardComponent,GridComponent,SearchComponent,TagsComponent ],
-  bootstrap:    [ DashboardComponent,GridComponent,SearchComponent ],
+  declarations: [ DashboardComponent,GridComponent,SearchComponent,TagsComponent,SubmenuComponent ],
+  bootstrap:    [ DashboardComponent,GridComponent,SearchComponent,SubmenuComponent ],
   providers:    [DashboardService,SearchService]
 })
 export class BudgetedModule { }
