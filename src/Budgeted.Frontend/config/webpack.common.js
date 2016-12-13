@@ -47,10 +47,7 @@ module.exports = {
   },
 
   plugins: [
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: ['budgeted-app', 'app', 'vendor', 'polyfills']
-    // }),
-   
+       
     new HtmlWebpackPlugin({
       inject: true,
       chunks:['budgeted-app', 'vendor', 'polyfills'],        

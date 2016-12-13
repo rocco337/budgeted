@@ -24,6 +24,7 @@
     "awesome-typescript-loader": "^2.2.4",
     "concurrently": "^3.1.0",
     "css-loader": "^0.26.0",
+    "css-modal": "^1.5.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.4",
@@ -44,6 +45,7 @@
     "typings": "^2.0.0",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",
+    "webpack-livereload-plugin": "^0.9.0",
     "webpack-merge": "^1.0.2"
   },
   "scripts": {

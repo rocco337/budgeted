@@ -13,5 +13,7 @@ export class TransactionModel{
         this.DateCreated = dateCreated;
         this.Tags = tags;
     }
+
+   
 }
 

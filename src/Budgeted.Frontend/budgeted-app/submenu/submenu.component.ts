@@ -1,4 +1,3 @@
-import { selector } from 'rxjs/operator/publish';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
@@ -7,12 +6,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
             <div class="pure-menu custom-restricted-width">
           <ul class="pure-menu-list">
               <li class="pure-menu-item">
-                <a href="#" class="pure-menu-link" (click)="onImportRaised()">Import</a>
+                <a href="#add-transaction-modal" class="pure-menu-link">Import</a>
               </li>
               <li class="pure-menu-item">
               <a href="#" class="pure-menu-link" (click)="onAddNewTransactionRaised()">Add new transaction</a>
               </li>
             </ul>
+
+            <add-transaction-modal></add-transaction-modal>
               
     `
 })

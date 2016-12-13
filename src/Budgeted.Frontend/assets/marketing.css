@@ -297,3 +297,10 @@ a.pure-button-primary {
 .list-padding-left-15  li b{
     padding-left: 15px;
 }
+
+.add-tag-list-holder{
+    width:200px !important;
+    list-style:none;
+    background-color: white !important;
+    border-top: 0 !important;
+}

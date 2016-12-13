@@ -7,10 +7,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output, Input } from 
 @Component({
     outputs: ['onAddTagEvent'],
     selector: 'add-tag',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
                         <div style="display:inline-block; float:left;" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                           <a href="#" class="pure-menu-link" style="padding:0 10px;"></a>
-                          <ul class="pure-menu-children" style="list-style:none;">
+                          <ul class="pure-menu-children add-tag-list-holder">
                             <li lass="pure-menu-item">
                                 <input type="text" [formControl]="term" (keydown.enter)="termAutoComplete(term.value)">                            
                             </li>
@@ -22,9 +23,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output, Input } from 
                             </li>                                
                           </ul>
                         </div>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush
-
+    `  
 })
 export class TagsComponent {
     allTags: Array<string> = ["house", "utilities", "food", "books", "social", "tech", "vacation", "oo", "oooo"];
