@@ -1,20 +1,31 @@
+import { NgIf } from '@angular/common/src/directives/ng_if';
 import { TransactionModel } from '../search/entities';
-import { CompileMetadataWithIdentifier } from '@angular/compiler';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, style } from '@angular/core';
 
 @Component({
     outputs: ['onAddTagEvent'],
     selector: 'add-tag',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
-                        <div style="display:inline-block; float:left;" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                          <a href="#" class="pure-menu-link" style="padding:0 10px;"></a>
-                          <ul class="pure-menu-children add-tag-list-holder">
-                            <li lass="pure-menu-item">
-                                <input type="text" [formControl]="term" (keydown.enter)="termAutoComplete(term.value)">                            
-                            </li>
+    template: `         
+                     <div class="pure-menu-has-children pure-menu-allow-hover" style="float:left;">
+                            <a href="#" class="pure-menu-link" style="padding:0 10px;" 
+                         *ngIf="!isComponentExpanded"
+                          (mouseenter)="tagInputOnFocusInRaised()" 
+                          (mouseleave)="tagInputOnFocusOutRaised()" 
+                          ></a>
+                     </div>
+                       <div style="display:inline-block; float:left;" class="pure-menu-item" 
+                       (mouseenter)="tagInputOnFocusInRaised()"  
+                       (mouseleave)="tagInputOnFocusOutRaised()" >
+
+                          <input type="text" class="no-margin" [formControl]="term" *ngIf="isComponentExpanded || (!isComponentExpanded && showSuggestions)"
+                          (keydown.enter)="termAutoComplete(term.value)"
+                          (focus)="tagInputOnFocusInRaised()" 
+                          (focusout)="tagInputOnFocusOutRaised()" 
+                          (keydown.escape)="tagInputOnFocusOutRaised(term.value)" >     
+                         
+                          <ul class="add-tag-list-holder no-padding no-margin" *ngIf="showSuggestions" style="position:absolute;">                            
                             <li *ngIf="filteredTags.length===0">
                                 <a href="#" class="pure-menu-link" (click)="addAndCreate(term.value)">{{"New: " + term.value}}</a>                                
                             </li>
@@ -34,8 +45,12 @@ export class TagsComponent {
     @Input()
     transaction: TransactionModel
 
-    onAddTagEvent = new EventEmitter();
+    @Input()
+    isComponentExpanded:boolean=false;
 
+    onAddTagEvent = new EventEmitter();
+    
+    showSuggestions = false;
     ngOnInit() {
         this.term.valueChanges.subscribe(searchTerm=>{
             this.filteredTags = this.allTags.filter(m => this.transaction.Tags.indexOf(m) === -1 && (!searchTerm || m.includes(searchTerm)));
@@ -64,6 +79,17 @@ export class TagsComponent {
         else{
             this.addTag(this.filteredTags[0]);            
         }
+    }
+
+    tagInputOnFocusOutRaised(){
+        this.showSuggestions=false;
+    }
+
+    tagInputOnFocusInRaised(){
+        if(!this.term)
+            this.filteredTags= [];
+            
+        this.showSuggestions=true;
     }
     
 }

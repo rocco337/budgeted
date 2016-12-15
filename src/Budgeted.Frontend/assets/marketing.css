@@ -294,6 +294,10 @@ a.pure-button-primary {
     list-style: none !important;
 }
 
+.no-padding{ padding:0 !important;}
+.no-margin{ margin:0 !important;}
+
+
 .list-padding-left-15  li b{
     padding-left: 15px;
 }
@@ -304,3 +308,4 @@ a.pure-button-primary {
     background-color: white !important;
     border-top: 0 !important;
 }
+

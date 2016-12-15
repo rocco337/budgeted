@@ -26,14 +26,16 @@ import { TransactionModel } from './../search/entities'
                 <label for="date">Date</label>
                 <input id="date" type="text" placeholder="dd/mm/yyyy">
 
-                <div class="pure-g">
-                    <div class="pure-u-1-1"> 
-                            <add-tag [transaction]="transaction" (onAddTagEvent)="addTag($event)"></add-tag>
+               <div class="pure-g">
+                    <div class="pure-u-1-1">
+                            <label>Tags</label>
+                            <add-tag [transaction]="transaction" [isComponentExpanded]="true" (onAddTagEvent)="addTag($event)"></add-tag>
                             <span *ngFor="let tag of transaction.Tags">
                                 <a href="#" (click)="removeTag(tag)">{{tag}}</a>
                             </span>
                     </div>
-                </div>
+               </div>
+                   
                 <br/>
                 <button type="submit" class="pure-button pure-button-primary">Sign in</button>
             </fieldset>
@@ -47,26 +49,26 @@ import { TransactionModel } from './../search/entities'
 `
 })
 export class AddTransactionModalComponent {
-    transaction:AddTransactionModel;
+    transaction: AddTransactionModel;
 
     constructor() {
         this.transaction = new AddTransactionModel()
     }
 
-    addTag(tag){
-         if (this.transaction.Tags.indexOf(tag) === -1)
+    addTag(tag) {
+        if (this.transaction.Tags.indexOf(tag) === -1)
             this.transaction.Tags.push(tag);
     }
 
-    removeTag(tag){
-       this.transaction.Tags = this.transaction.Tags.filter(m=>m!=tag);
+    removeTag(tag) {
+        this.transaction.Tags = this.transaction.Tags.filter(m => m != tag);
     }
 
 }
 
-class AddTransactionModel{
-    Amount:number;
-    Description:string;
-    DateCreated:string;
-    Tags:Array<string> = [];
+class AddTransactionModel {
+    Amount: number;
+    Description: string;
+    DateCreated: string;
+    Tags: Array<string> = [];
 }
