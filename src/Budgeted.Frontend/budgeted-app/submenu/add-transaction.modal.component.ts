@@ -1,74 +1,47 @@
 import { browserDetection } from '@angular/platform-browser/testing/browser_util';
 import { Component } from '@angular/core';
 import { TransactionModel } from './../search/entities'
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 
 @Component({
     selector: 'add-transaction-modal',
-    template: `
-    
-    <section class="modal--show" id="add-transaction-modal" tabindex="-1"
-        role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-
-    <div class="modal-inner" style="overflow:visible;">
-        <header id="modal-label">
-        <h1>Add new transaction</h1>
-        </header>
-        <div class="modal-content" style="max-height:none; overflow:visible;">
-        
-        <form class="pure-form pure-form-stacked">
-            <fieldset>                       
-                <label for="email">Amount</label>
-                <input id="amount" type="text" placeholder="10,11">
-        
-                <label for="description">Description</label>
-                <input id="description" type="text" placeholder="Buying weekly groceries">
-                
-                <label for="date">Date</label>
-                <input id="date" type="text" placeholder="dd/mm/yyyy">
-
-               <div class="pure-g">
-                    <div class="pure-u-1-1">
-                            <label>Tags</label>
-                            <add-tag [transaction]="transaction" [isComponentExpanded]="true" (onAddTagEvent)="addTag($event)"></add-tag>
-                            <span *ngFor="let tag of transaction.Tags">
-                                <a href="#" (click)="removeTag(tag)">{{tag}}</a>
-                            </span>
-                    </div>
-               </div>
-                   
-                <br/>
-                <button type="submit" class="pure-button pure-button-primary">Sign in</button>
-            </fieldset>
-         </form>        
-        </div>
-    </div>
-
-    <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
-        data-dismiss="modal">?</a>
-</section>
-`
+    templateUrl:'add-transaction.modal.template.html'
 })
 export class AddTransactionModalComponent {
-    transaction: AddTransactionModel;
 
-    constructor() {
-        this.transaction = new AddTransactionModel()
+    formModel: FormGroup;
+
+    constructor(fb: FormBuilder) {
+
+        this.formModel = fb.group({
+            'amount': [null, Validators.required],
+            'description': [null, Validators.required],
+            'date': [null, Validators.required],
+            'tags': [new Array(), Validators.required],
+        });
     }
 
     addTag(tag) {
-        if (this.transaction.Tags.indexOf(tag) === -1)
-            this.transaction.Tags.push(tag);
+        var tags: string[] = this.formModel.controls['tags'].value;
+        tags = tags ? tags : new Array();
+
+        if (tags.indexOf(tag) === -1)
+            tags.push(tag);
+
+        this.formModel.controls['tags'].setValue(tags);
     }
 
     removeTag(tag) {
-        this.transaction.Tags = this.transaction.Tags.filter(m => m != tag);
+        var tags: string[] = this.formModel.controls['tags'].value;
+        tags = tags ? tags : new Array();
+
+        tags = tags.filter(m => m != tag);
+        this.formModel.controls['tags'].setValue(tags);
     }
 
+    submitForm(value: any): void {
+        console.log('Reactive Form Data: ')
+        console.log(value);
+    }
 }
 
-class AddTransactionModel {
-    Amount: number;
-    Description: string;
-    DateCreated: string;
-    Tags: Array<string> = [];
-}

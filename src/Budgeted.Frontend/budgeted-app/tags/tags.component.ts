@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, style 
                           (mouseleave)="tagInputOnFocusOutRaised()" 
                           ></a>
                      </div>
-                       <div style="display:inline-block; float:left;" class="pure-menu-item" 
+                       <div style="display:inline-block; float:left; height:40px;" class="pure-menu-item" 
                        (mouseenter)="tagInputOnFocusInRaised()"  
                        (mouseleave)="tagInputOnFocusOutRaised()" >
 
@@ -43,7 +43,7 @@ export class TagsComponent {
     term = new FormControl();
 
     @Input()
-    transaction: TransactionModel
+    existingTags: string[]
 
     @Input()
     isComponentExpanded:boolean=false;
@@ -52,14 +52,16 @@ export class TagsComponent {
     
     showSuggestions = false;
     ngOnInit() {
+        this.existingTags = this.existingTags ? this.existingTags:new Array();
+        
         this.term.valueChanges.subscribe(searchTerm=>{
-            this.filteredTags = this.allTags.filter(m => this.transaction.Tags.indexOf(m) === -1 && (!searchTerm || m.includes(searchTerm)));
+            this.filteredTags = this.allTags.filter(m => this.existingTags.indexOf(m) === -1 && (!searchTerm || m.includes(searchTerm)));
         });  
         this.term.setValue("");              
     }
 
     addTag(tag) {
-        if (this.transaction.Tags.indexOf(tag) === -1) {
+        if (this.existingTags.indexOf(tag) === -1) {
             this.onAddTagEvent.emit(tag);
             this.term.setValue("");
         }
