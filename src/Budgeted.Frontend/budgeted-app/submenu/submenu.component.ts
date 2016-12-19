@@ -6,10 +6,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
             <div class="pure-menu custom-restricted-width">
           <ul class="pure-menu-list">
               <li class="pure-menu-item">
-                <a href="#add-transaction-modal" class="pure-menu-link">Import</a>
+                <a href="#" class="pure-menu-link">Import</a>
               </li>
               <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link" (click)="onAddNewTransactionRaised()">Add new transaction</a>
+              <a class="pure-menu-link" href="#add-transaction-modal" >Add new transaction</a>
               </li>
             </ul>
 
@@ -19,11 +19,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class SubmenuComponent {
 
-    onImportRaised(arg): void {
-        alert("Import");
-    }
-
-    onAddNewTransactionRaised(arg): void {
-        alert("New tran");
-    }
 }
