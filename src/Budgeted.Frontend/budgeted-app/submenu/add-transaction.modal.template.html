@@ -1,40 +1,23 @@
-  <section class="modal--show" id="add-transaction-modal" tabindex="-1"
-        role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-
-    <div class="modal-inner" style="overflow:visible;">
-        <header id="modal-label">
-        <h1>Add new transaction</h1>
-        </header>
-        <div class="modal-content" style="max-height:none; overflow:visible;">
-        
-        <form class="pure-form pure-form-stacked" [formGroup]="formModel" (ngSubmit)="submitForm(formModel.value)">
-            <fieldset>                       
-                <label for="amount">Amount</label>
-                <input id="amount" type="text" placeholder="10,11" [formControl]="formModel.controls['amount']">
-        
-                <label for="description">Description</label>
-                <input id="description" type="text" placeholder="Buying weekly groceries" [formControl]="formModel.controls['description']">
-                
-                <label for="date">Date</label>
-                <input id="date" type="text" placeholder="dd/mm/yyyy" [formControl]="formModel.controls['date']">
-
-               <div class="pure-g">
-                    <div class="pure-u-1-1">
-                            <label>Tags</label>
-                            <add-tag [existingTags]="formModel.controls['tags'].value" [isComponentExpanded]="true" (onAddTagEvent)="addTag($event)"></add-tag>
-                            <span *ngFor="let tag of formModel.controls['tags'].value">
+<modal-control title="Add new transaction">
+    <form class="pure-form pure-form-stacked" [formGroup]="formModel" (ngSubmit)="submitForm(formModel.value)">
+        <fieldset>
+            <label for="amount">Amount</label>
+            <input id="amount" type="text" placeholder="10,11" [formControl]="formModel.controls['amount']">
+            <label for="description">Description</label>
+            <input id="description" type="text" placeholder="Buying weekly groceries" [formControl]="formModel.controls['description']">
+            <label for="date">Date</label>
+            <input id="date" type="text" placeholder="dd/mm/yyyy" [formControl]="formModel.controls['date']">
+            <div class="pure-g">
+                <div class="pure-u-1-1">
+                    <label>Tags</label>
+                    <add-tag [existingTags]="formModel.controls['tags'].value" [isComponentExpanded]="true" (onAddTagEvent)="addTag($event)"></add-tag>
+                    <span *ngFor="let tag of formModel.controls['tags'].value">
                                 <a href="#" (click)="removeTag(tag)">{{tag}}</a>
                             </span>
-                    </div>
-               </div>
-                   
-                <br/>
-                <button type="submit" class="pure-button pure-button-primary" [disabled]="!formModel.valid">Submit</button>
-            </fieldset>
-         </form>        
-        </div>
-    </div>
-
-    <a href="#!" class="modal-close" title="Close this modal" data-close="Close"
-        data-dismiss="modal">?</a>
-</section>
+                </div>
+            </div>
+            <br/>
+            <button type="submit" class="pure-button pure-button-primary" [disabled]="!formModel.valid">Submit</button>
+        </fieldset>
+    </form>
+</modal-control>

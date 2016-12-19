@@ -1,3 +1,4 @@
+import { ModalComponent } from '../custom-controls/modal.control.component';
 import { browserDetection } from '@angular/platform-browser/testing/browser_util';
 import { Component } from '@angular/core';
 import { TransactionModel } from './../search/entities'
@@ -5,7 +6,8 @@ import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 
 @Component({
     selector: 'add-transaction-modal',
-    templateUrl:'add-transaction.modal.template.html'
+    templateUrl:'add-transaction.modal.template.html',
+       
 })
 export class AddTransactionModalComponent {
 
