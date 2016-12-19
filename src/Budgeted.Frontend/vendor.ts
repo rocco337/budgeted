@@ -15,6 +15,5 @@ import 'purecss'
 
 require('./assets/marketing.css') 
 require('./node_modules/css-modal/build/modal.css') 
-require('./node_modules/css-modal/build/modal-gallery.css') 
 
 

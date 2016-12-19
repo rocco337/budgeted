@@ -19,7 +19,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, style 
                        (mouseenter)="tagInputOnFocusInRaised()"  
                        (mouseleave)="tagInputOnFocusOutRaised()" >
 
-                          <input type="text" class="no-margin" [formControl]="term" *ngIf="isComponentExpanded || (!isComponentExpanded && showSuggestions)"
+                          <input type="text" 
+                          placeholder="type here"
+                          class="no-margin" [formControl]="term" *ngIf="isComponentExpanded || (!isComponentExpanded && showSuggestions)"
                           (keydown.enter)="termAutoComplete(term.value)"
                           (focus)="tagInputOnFocusInRaised()" 
                           (focusout)="tagInputOnFocusOutRaised()" 

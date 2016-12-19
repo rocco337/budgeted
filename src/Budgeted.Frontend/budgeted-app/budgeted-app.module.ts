@@ -14,13 +14,13 @@ import {TagsService} from './tags/tags.service'
 
 import {SubmenuComponent} from './submenu/submenu.component'
 import {AddTransactionModalComponent} from './submenu/add-transaction.modal.component'
-
+import {ImportComponent} from './submenu/import.component'
 import {ModalComponent} from './custom-controls/modal.control.component'
 
 @NgModule({
   imports:      [ BrowserModule,FormsModule,ReactiveFormsModule,HttpModule ],
-  declarations: [ DashboardComponent,GridComponent,SearchComponent,TagsComponent,SubmenuComponent,AddTransactionModalComponent,ModalComponent ],
-  bootstrap:    [ DashboardComponent,GridComponent,SearchComponent,SubmenuComponent,AddTransactionModalComponent ],
+  declarations: [ DashboardComponent,GridComponent,SearchComponent,TagsComponent,SubmenuComponent,AddTransactionModalComponent,ModalComponent,ImportComponent ],
+  bootstrap:    [ DashboardComponent,GridComponent,SearchComponent,SubmenuComponent,AddTransactionModalComponent,ImportComponent ],
   providers:    [DashboardService,SearchService,TagsService]
 })
 export class BudgetedModule { }

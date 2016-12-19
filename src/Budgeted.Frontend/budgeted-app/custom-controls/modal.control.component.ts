@@ -6,12 +6,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
     selector: 'modal-control',
     template: `
-
-      <section class="modal--show" id="add-transaction-modal" tabindex="-1"
-        role="dialog" aria-labelledby="modal-label" aria-hidden="true" (keydown.escape)="closeModal()">
+    <a class="pure-menu-link" (click)="openModal()">{{title}}</a>
+      <section class="modal--fade is-active" id="{{idSelector}}" (keydown.escape)="closeModal()" tabindex="-1" *ngIf="showModal"
+        role="dialog" aria-hidden="true">
 
             <div class="modal-inner" style="overflow:visible;">
-                <header id="modal-label">
+                <header>
                 <h1>{{title}}</h1>
                 </header>
                 <div class="modal-content" style="max-height:none; overflow:visible;">
@@ -19,9 +19,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                 </div>
             </div>
 
- <div class="modal-close" title="Close this modal" data-close="Close" data-dismiss="modal" (click)="closeModal()">?</div>
-            <a href="#!" class="modal-close close-anchor" title="Close this modal" data-close="Close" style="display:none;"
-                data-dismiss="modal">?</a>
+            <div class="modal-close" (click)="closeModal()">?</div>           
         </section>
     `
 })
@@ -29,13 +27,20 @@ export class ModalComponent {
 
     @Input()
     title: string;
+
+    @Input()
+    idSelector:string;
+
     elementRef: ElementRef;
 
-    constructor(_elementRef: ElementRef) {
-        this.elementRef = _elementRef;
+    showModal:boolean=false;
+    constructor() {
     }
 
+    openModal(){
+        this.showModal = true;
+    }
     closeModal() {
-        this.elementRef.nativeElement.querySelector('.close-anchor').click();
+        this.showModal = false;
     }
 }
