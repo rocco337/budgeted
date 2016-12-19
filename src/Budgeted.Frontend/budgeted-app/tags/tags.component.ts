@@ -1,3 +1,4 @@
+import { TagsService } from './tags.service';
 import { NgIf } from '@angular/common/src/directives/ng_if';
 import { TransactionModel } from '../search/entities';
 import { FormControl } from '@angular/forms';
@@ -5,7 +6,6 @@ import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, style } from '@angular/core';
 
 @Component({
-    outputs: ['onAddTagEvent'],
     selector: 'add-tag',
     template: `         
                      <div class="pure-menu-has-children pure-menu-allow-hover" style="float:left;">
@@ -26,7 +26,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, style 
                           (keydown.escape)="tagInputOnFocusOutRaised(term.value)" >     
                          
                           <ul class="add-tag-list-holder no-padding no-margin" *ngIf="showSuggestions" style="position:absolute;">                            
-                            <li *ngIf="filteredTags.length===0">
+                            <li *ngIf="filteredTags.length===0 && term.value">
                                 <a href="#" class="pure-menu-link" (click)="addAndCreate(term.value)">{{"New: " + term.value}}</a>                                
                             </li>
                             <li class="pure-menu-item" *ngFor="let tag of filteredTags">
@@ -34,11 +34,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, style 
                             </li>                                
                           </ul>
                         </div>
-    `  
+    `
 })
 export class TagsComponent {
-    allTags: Array<string> = ["house", "utilities", "food", "books", "social", "tech", "vacation", "oo", "oooo"];
     filteredTags: Array<string>;
+    tagsService: TagsService;
 
     term = new FormControl();
 
@@ -46,18 +46,29 @@ export class TagsComponent {
     existingTags: string[]
 
     @Input()
-    isComponentExpanded:boolean=false;
+    isComponentExpanded: boolean = false;
 
+    @Output()
     onAddTagEvent = new EventEmitter();
-    
+
     showSuggestions = false;
+
+    constructor(tagService: TagsService) {
+        this.tagsService = tagService;
+    }
+
     ngOnInit() {
-        this.existingTags = this.existingTags ? this.existingTags:new Array();
-        
-        this.term.valueChanges.subscribe(searchTerm=>{
-            this.filteredTags = this.allTags.filter(m => this.existingTags.indexOf(m) === -1 && (!searchTerm || m.includes(searchTerm)));
-        });  
-        this.term.setValue("");              
+        this.existingTags = this.existingTags ? this.existingTags : new Array();
+
+        var tags = this.tagsService.getTags();
+        this.term.valueChanges.subscribe(searchTerm => {
+            if(!searchTerm)
+                this.filteredTags = [];
+            else
+                this.filteredTags = tags.filter(m => this.existingTags.indexOf(m) === -1 && (!searchTerm || m.includes(searchTerm)));
+        });
+
+        this.term.setValue("");
     }
 
     addTag(tag) {
@@ -66,32 +77,32 @@ export class TagsComponent {
             this.term.setValue("");
         }
     }
-    
-    addAndCreate(tag){
-         this.addTag(tag);
+
+    addAndCreate(tag) {
+        this.addTag(tag);
     }
 
-    termAutoComplete(term){
-        if(!term)
+    termAutoComplete(term) {
+        if (!term)
             return;
-            
-        if(this.filteredTags.length===0){
+
+        if (this.filteredTags.length === 0) {
             this.addAndCreate(term);
         }
-        else{
-            this.addTag(this.filteredTags[0]);            
+        else {
+            this.addTag(this.filteredTags[0]);
         }
     }
 
-    tagInputOnFocusOutRaised(){
-        this.showSuggestions=false;
+    tagInputOnFocusOutRaised() {
+        this.showSuggestions = false;
     }
 
-    tagInputOnFocusInRaised(){
-        if(!this.term)
-            this.filteredTags= [];
-            
-        this.showSuggestions=true;
+    tagInputOnFocusInRaised() {
+        if (!this.term.value)
+            this.filteredTags = [];
+        
+        this.showSuggestions = true;
     }
-    
+
 }

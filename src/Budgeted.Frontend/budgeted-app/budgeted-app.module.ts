@@ -10,6 +10,8 @@ import {SearchService} from './search/search.service'
 import {GridComponent} from './search/grid.component'
 import {SearchComponent} from './search/search.component'
 import {TagsComponent} from './tags/tags.component'
+import {TagsService} from './tags/tags.service'
+
 import {SubmenuComponent} from './submenu/submenu.component'
 import {AddTransactionModalComponent} from './submenu/add-transaction.modal.component'
 
@@ -17,6 +19,6 @@ import {AddTransactionModalComponent} from './submenu/add-transaction.modal.comp
   imports:      [ BrowserModule,FormsModule,ReactiveFormsModule,HttpModule ],
   declarations: [ DashboardComponent,GridComponent,SearchComponent,TagsComponent,SubmenuComponent,AddTransactionModalComponent ],
   bootstrap:    [ DashboardComponent,GridComponent,SearchComponent,SubmenuComponent,AddTransactionModalComponent ],
-  providers:    [DashboardService,SearchService]
+  providers:    [DashboardService,SearchService,TagsService]
 })
 export class BudgetedModule { }
