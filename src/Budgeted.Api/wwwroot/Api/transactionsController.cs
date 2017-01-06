@@ -24,6 +24,13 @@ namespace Api
         {
             return Ok(request);
         }
+
+        [Route("import")]
+        [HttpPost]
+        public IActionResult ImportTransactions()
+        {
+            return Ok(Request.Form.Files[0].FileName);
+        }
     }
 
     public class TransactionDto
@@ -39,10 +46,10 @@ namespace Api
         [Required]
         public decimal Amount { get; set; }
 
-        [Required]        
+        [Required]
         public string Description { get; set; }
-        
-        [Required]        
+
+        [Required]
         public string TransactionDate { get; set; }
 
         public string[] Tags { get; set; }
