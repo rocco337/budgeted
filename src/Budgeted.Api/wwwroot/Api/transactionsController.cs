@@ -29,6 +29,10 @@ namespace Api
         [HttpPost()]
         public IActionResult Add([FromBody] TransactionAddRequest request)
         {
+            if(!ModelState.IsValid){
+                return this.BadRequest();
+            }
+            
             var handlerRequest = new AddTransactionRequest(request.Amount,request.Description,request.TransactionDate,request.Tags);
             var result =  _mediator.Send(handlerRequest);
             return Ok(result);
