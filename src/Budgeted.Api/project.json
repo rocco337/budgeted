@@ -13,13 +13,13 @@
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Configuration.CommandLine": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
-    "Microsoft.AspNetCore.Mvc.Core": "1.0.0"
+    "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+    "MediatR": "3.0.0",
+    "MediatR.Extensions.Microsoft.DependencyInjection": "*"
   },
-
   "tools": {
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
   },
-
   "frameworks": {
     "netcoreapp1.0": {
       "imports": [
@@ -28,7 +28,6 @@
       ]
     }
   },
-
   "buildOptions": {
     "emitEntryPoint": true,
     "preserveCompilationContext": true,
@@ -39,21 +38,22 @@
       "System.GC.Server": true
     }
   },
-
   "publishOptions": {
     "include": [
       "wwwroot",
       "web.config"
     ]
   },
-
   "scripts": {
-    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+    "postpublish": [
+      "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"
+    ]
   },
-
   "tooling": {
     "defaultNamespace": "Budgeted.Api"
   },
-  "compile": ["*.cs"],
+  "compile": [
+    "*.cs"
+  ],
   "webroot": "wwwroot"
 }

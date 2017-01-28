@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using Handlers;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Api
 {
@@ -8,6 +9,12 @@ namespace Api
     [Route("api/[controller]")]
     public class TransactionsController : Controller
     {
+        IMediator _mediator;
+
+        public TransactionsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
         [Route("{searchPhrase}")]
         [HttpGet()]
@@ -22,7 +29,9 @@ namespace Api
         [HttpPost()]
         public IActionResult Add([FromBody] TransactionAddRequest request)
         {
-            return Ok(request);
+            var handlerRequest = new AddTransactionRequest(request.Amount,request.Description,request.TransactionDate,request.Tags);
+            var result =  _mediator.Send(handlerRequest);
+            return Ok(result);
         }
 
         [Route("import")]
