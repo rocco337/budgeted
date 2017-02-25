@@ -1,33 +1,35 @@
 using System;
+using DataAccess;
 using MediatR;
-using MongoDB.Driver;
 
 namespace Handlers
 {
-    public class AddTransactionHandler : IRequestHandler<AddTransactionRequest, string>
+    public class AddTransactionHandler : IRequestHandler<AddTransactionRequest, AddTransactionResponse>
     {
-        IMongoDatabase _mongoDatabase;
-        public AddTransactionHandler(IMongoDatabase mongoDatabase)
+       ITransactionRepository _transactionRepository;
+
+        public AddTransactionHandler(ITransactionRepository transactionRepository)
         {
-            _mongoDatabase = mongoDatabase;
+            _transactionRepository =transactionRepository;
         }
 
-        public string Handle(AddTransactionRequest message)
+        public AddTransactionResponse Handle(AddTransactionRequest message)
         {
-            var rnd = new Random().Next(1000);
+            var userId=Guid.Parse("c00730f4-5c99-48ed-8c4a-d7e9f2cfd9b3");
 
-            _mongoDatabase.GetCollection<TransactionEntity>("transactions").InsertOne(new TransactionEntity() { Id = 28 * rnd });
+            _transactionRepository.AddTransaction(userId,new TransactionEntity(){
+                Amount = message.Amount,
+                Description = message.Description,
+                TransactionDate = message.TransactionDate,
+                Tags = message.Tags
+            });
 
-            var res = Builders<TransactionEntity>.Filter.Eq(p => p.Id, 28 * rnd);
-            var result = _mongoDatabase.GetCollection<TransactionEntity>("transactions").Find(res);
-            return result.FirstOrDefault().Id.ToString();
+            return new AddTransactionResponse();
         }
     }
-    public class TransactionEntity
-    {
-        public int Id { get; set; }
-    }
-    public class AddTransactionRequest : IRequest<string>
+ 
+    public class AddTransactionResponse{}
+    public class AddTransactionRequest : IRequest<AddTransactionResponse>
     {
         public decimal Amount { get; set; }
 

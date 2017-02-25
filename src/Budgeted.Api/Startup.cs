@@ -1,3 +1,4 @@
+using DataAccess;
 using Handlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,8 @@ namespace Budgeted.Api
                 var client = new MongoClient(Configuration.GetSection("MongoConnection:ConnectionString").Value);
                 return client.GetDatabase(Configuration.GetSection("MongoConnection:Database").Value);
             });
+
+            services.AddTransient<ITransactionRepository,TransactionRepository>();
 
             services.AddMvc();
             services.AddMediatR(typeof(Startup));
