@@ -15,7 +15,10 @@
     "Microsoft.AspNetCore.Mvc": "1.0.0",
     "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
     "MediatR": "3.0.0",
-    "MediatR.Extensions.Microsoft.DependencyInjection": "*"
+    "MediatR.Extensions.Microsoft.DependencyInjection": "*",
+    "MongoDB.Driver.Core":"2.4.2",
+    "MongoDB.Driver":"2.4.2",
+    "MongoDB.Bson":"2.4.2"      
   },
   "tools": {
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
@@ -31,7 +34,8 @@
   "buildOptions": {
     "emitEntryPoint": true,
     "preserveCompilationContext": true,
-    "debugType": "portable"
+    "debugType": "portable",
+    "copyToOutput": {"includeFiles": "appsettings.json"}
   },
   "runtimeOptions": {
     "configProperties": {
@@ -40,6 +44,7 @@
   },
   "publishOptions": {
     "include": [
+      "appsettings.json",
       "wwwroot",
       "web.config"
     ]

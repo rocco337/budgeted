@@ -1,16 +1,34 @@
 using System;
 using MediatR;
+using MongoDB.Driver;
 
-namespace Handlers{
+namespace Handlers
+{
     public class AddTransactionHandler : IRequestHandler<AddTransactionRequest, string>
     {
+        IMongoDatabase _mongoDatabase;
+        public AddTransactionHandler(IMongoDatabase mongoDatabase)
+        {
+            _mongoDatabase = mongoDatabase;
+        }
+
         public string Handle(AddTransactionRequest message)
         {
-           return "Added";
+            var rnd = new Random().Next(1000);
+
+            _mongoDatabase.GetCollection<TransactionEntity>("transactions").InsertOne(new TransactionEntity() { Id = 28 * rnd });
+
+            var res = Builders<TransactionEntity>.Filter.Eq(p => p.Id, 28 * rnd);
+            var result = _mongoDatabase.GetCollection<TransactionEntity>("transactions").Find(res);
+            return result.FirstOrDefault().Id.ToString();
         }
     }
-
-    public class AddTransactionRequest : IRequest<string> {
+    public class TransactionEntity
+    {
+        public int Id { get; set; }
+    }
+    public class AddTransactionRequest : IRequest<string>
+    {
         public decimal Amount { get; set; }
 
         public string Description { get; set; }
