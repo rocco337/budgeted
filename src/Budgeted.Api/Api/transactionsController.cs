@@ -49,13 +49,6 @@ namespace Api
         }
     }
 
-    public class TransactionDto
-    {
-        public int Id { get; set; }
-        public string Description { get; set; }
-        public string DateTimeFormated { get; set; }
-        public string[] Tags { get; set; }
-    }
 
     public class TransactionAddRequest
     {
