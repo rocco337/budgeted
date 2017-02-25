@@ -22,9 +22,7 @@ namespace Budgeted.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddTransient<IRequestHandler<AddTransactionRequest, string>, AddTransactionHandler>();
-
+        {            
             services.AddTransient<IMongoDatabase>(m =>
             {
                 var client = new MongoClient(Configuration.GetSection("MongoConnection:ConnectionString").Value);
