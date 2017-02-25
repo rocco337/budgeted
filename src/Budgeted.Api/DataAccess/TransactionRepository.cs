@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using System.Linq;
+
 
 namespace DataAccess
 {
@@ -9,6 +11,7 @@ namespace DataAccess
     {
         void AddTransaction(System.Guid userId, TransactionEntity transaction);
         Guid AddUser(UserEntity user);
+        IReadOnlyList<TransactionEntity> Search(System.Guid userId, string phrase);
     }
     internal class TransactionRepository : ITransactionRepository
     {
@@ -28,7 +31,7 @@ namespace DataAccess
 
             entity.Transactions.Add(transaction);
 
-            collection.ReplaceOne(filter,entity);
+            collection.ReplaceOne(filter, entity);
         }
 
 
@@ -45,6 +48,22 @@ namespace DataAccess
 
             return guid;
         }
+
+        public IReadOnlyList<TransactionEntity> Search(System.Guid userId, string phrase)
+        {
+            var collection = _mongo.GetCollection<UserTransactionsEntity>("UserTransactionsEntity");
+
+            var filter = Builders<UserTransactionsEntity>.Filter.Eq(p => p.Id, userId);
+
+            var result = new List<TransactionEntity>();
+            foreach (var entity in collection.Find(filter).FirstOrDefault().Transactions)
+            {
+                if(string.IsNullOrEmpty(phrase) || (entity.Description.Contains(phrase) || (entity.Tags != null && entity.Tags.Any(m=>m.Equals(phrase)))))
+                    result.Add(entity);
+            }
+
+            return result;
+        }
     }
 
     public class UserTransactionsEntity
@@ -56,21 +75,23 @@ namespace DataAccess
 
         public UserTransactionsEntity()
         {
-         Transactions = new List<TransactionEntity>();   
+            Transactions = new List<TransactionEntity>();
         }
     }
 
-    public class UserEntity { 
+    public class UserEntity
+    {
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }
-    public class TransactionEntity { 
-         public decimal Amount { get; set; }
+    public class TransactionEntity
+    {
+        public decimal Amount { get; set; }
 
         public string Description { get; set; }
 
         public string TransactionDate { get; set; }
 
-        public string[] Tags { get; set; }
+        public IReadOnlyList<string> Tags { get; set; }
     }
 }

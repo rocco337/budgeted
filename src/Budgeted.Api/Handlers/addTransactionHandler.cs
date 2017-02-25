@@ -1,4 +1,5 @@
 using System;
+using Budgeted.Api;
 using DataAccess;
 using MediatR;
 
@@ -7,17 +8,17 @@ namespace Handlers
     public class AddTransactionHandler : IRequestHandler<AddTransactionRequest, AddTransactionResponse>
     {
        ITransactionRepository _transactionRepository;
+       Identity _identity;
 
-        public AddTransactionHandler(ITransactionRepository transactionRepository)
+        public AddTransactionHandler(ITransactionRepository transactionRepository,Identity identity)
         {
             _transactionRepository =transactionRepository;
+            _identity = identity;
         }
 
         public AddTransactionResponse Handle(AddTransactionRequest message)
         {
-            var userId=Guid.Parse("c00730f4-5c99-48ed-8c4a-d7e9f2cfd9b3");
-
-            _transactionRepository.AddTransaction(userId,new TransactionEntity(){
+            _transactionRepository.AddTransaction(_identity.Id,new TransactionEntity(){
                 Amount = message.Amount,
                 Description = message.Description,
                 TransactionDate = message.TransactionDate,

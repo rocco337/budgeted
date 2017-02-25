@@ -30,6 +30,12 @@ namespace Budgeted.Api
                 return client.GetDatabase(Configuration.GetSection("MongoConnection:Database").Value);
             });
 
+            services.AddSingleton<Identity>(m=>{
+                return new Identity(){
+                    Id=System.Guid.Parse("c00730f4-5c99-48ed-8c4a-d7e9f2cfd9b3")
+                };
+            });
+            
             services.AddTransient<ITransactionRepository,TransactionRepository>();
 
             services.AddMvc();
@@ -48,6 +54,10 @@ namespace Budgeted.Api
             }
 
         }
+    }
+
+    public class Identity{
+        public System.Guid Id { get; set; }
     }
 
 

@@ -16,25 +16,28 @@ namespace Api
             _mediator = mediator;
         }
 
-        [Route("{searchPhrase}")]
-        [HttpGet()]
+        [HttpGet("{searchPhrase?}")]
         public IActionResult Get(string searchPhrase)
         {
-            return Ok(new[]{
-                    new TransactionDto(){ Id=1, Description="Test", DateTimeFormated = "1.1.2017 12:00", Tags=new []{"hous","car","insurance"} },
-                });
+            var result = _mediator.Send(new GetTransactionsrequest()
+            {
+                SearchPhrase = searchPhrase
+            });
+
+            return Ok(result);
         }
 
         [Route("")]
         [HttpPost()]
         public IActionResult Add([FromBody] TransactionAddRequest request)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return this.BadRequest();
             }
-            
-            var handlerRequest = new AddTransactionRequest(request.Amount,request.Description,request.TransactionDate,request.Tags);
-            var result =  _mediator.Send(handlerRequest);
+
+            var handlerRequest = new AddTransactionRequest(request.Amount, request.Description, request.TransactionDate, request.Tags);
+            var result = _mediator.Send(handlerRequest);
             return Ok(result);
         }
 
