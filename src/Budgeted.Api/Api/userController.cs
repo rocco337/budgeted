@@ -8,16 +8,16 @@ namespace Api
 
     public class UserController : Controller
     {
-        ITransactionRepository _transactionRepository;
-        public UserController(ITransactionRepository transactionRepository)
+        IUserRepository _userRepository;
+        public UserController(IUserRepository userRepository)
         {
-            _transactionRepository = transactionRepository;
+            _userRepository = userRepository;
         }
 
         [HttpPost("")]
         public ObjectResult Add(UserEntity entity)
         {
-            var result = _transactionRepository.AddUser(entity);
+            var result = _userRepository.AddUser(entity);
             return Ok(result);
         }
 

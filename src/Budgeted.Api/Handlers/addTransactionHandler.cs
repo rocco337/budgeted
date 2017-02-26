@@ -22,7 +22,8 @@ namespace Handlers
                 Amount = message.Amount,
                 Description = message.Description,
                 TransactionDate = message.TransactionDate,
-                Tags = message.Tags
+                Tags = message.Tags,
+                UserId=_identity.Id
             });
 
             return new AddTransactionResponse();

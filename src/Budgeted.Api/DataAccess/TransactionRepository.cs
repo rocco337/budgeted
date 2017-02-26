@@ -10,7 +10,7 @@ namespace DataAccess
     public interface ITransactionRepository
     {
         void AddTransaction(System.Guid userId, TransactionEntity transaction);
-        Guid AddUser(UserEntity user);
+
         IReadOnlyList<TransactionEntity> Search(System.Guid userId, string phrase);
     }
     internal class TransactionRepository : ITransactionRepository
@@ -23,69 +23,32 @@ namespace DataAccess
 
         public void AddTransaction(System.Guid userId, TransactionEntity transaction)
         {
-            var collection = _mongo.GetCollection<UserTransactionsEntity>("UserTransactionsEntity");
+            var collection = _mongo.GetCollection<TransactionEntity>("TransactionEntity");
 
-            var filter = Builders<UserTransactionsEntity>.Filter.Eq(p => p.Id, userId);
-
-            var entity = collection.Find(filter).FirstOrDefault();
-
-            entity.Transactions.Add(transaction);
-
-            collection.ReplaceOne(filter, entity);
-        }
-
-
-        public Guid AddUser(UserEntity user)
-        {
-            var guid = Guid.NewGuid();
-
-            var collection = _mongo.GetCollection<UserTransactionsEntity>("UserTransactionsEntity");
-            collection.InsertOne(new UserTransactionsEntity()
-            {
-                Id = guid,
-                User = user
-            });
-
-            return guid;
+            collection.InsertOne(transaction);
         }
 
         public IReadOnlyList<TransactionEntity> Search(System.Guid userId, string phrase)
         {
-            var collection = _mongo.GetCollection<UserTransactionsEntity>("UserTransactionsEntity");
+            var result = _mongo.GetCollection<TransactionEntity>("TransactionEntity").AsQueryable().Where(m => m.UserId == userId);
 
-            var filter = Builders<UserTransactionsEntity>.Filter.Eq(p => p.Id, userId);
+            if(!string.IsNullOrEmpty(phrase)){
+                result = result.Where(m =>m.Description.Contains(phrase));
+                result = result.Where(m=> m.Tags == null || m.Tags.Any(n=>n.Contains(phrase)));
 
-            var result = new List<TransactionEntity>();
-            foreach (var entity in collection.Find(filter).FirstOrDefault().Transactions)
-            {
-                if(string.IsNullOrEmpty(phrase) || (entity.Description.Contains(phrase) || (entity.Tags != null && entity.Tags.Any(m=>m.Equals(phrase)))))
-                    result.Add(entity);
             }
+            
 
-            return result;
+            return result.ToList();
         }
     }
 
-    public class UserTransactionsEntity
+    public class TransactionEntity
     {
         [BsonId]
         public System.Guid Id { get; set; }
-        public UserEntity User { get; set; }
-        public IList<TransactionEntity> Transactions { get; set; }
 
-        public UserTransactionsEntity()
-        {
-            Transactions = new List<TransactionEntity>();
-        }
-    }
-
-    public class UserEntity
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
-    public class TransactionEntity
-    {
+        public System.Guid UserId { get; set; }
         public decimal Amount { get; set; }
 
         public string Description { get; set; }

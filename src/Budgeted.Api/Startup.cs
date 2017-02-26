@@ -32,11 +32,12 @@ namespace Budgeted.Api
 
             services.AddSingleton<Identity>(m=>{
                 return new Identity(){
-                    Id=System.Guid.Parse("c00730f4-5c99-48ed-8c4a-d7e9f2cfd9b3")
+                    Id=System.Guid.Parse("2da0a626-cb5d-4cb9-8e79-92da1fb1f59a")
                 };
             });
             
             services.AddTransient<ITransactionRepository,TransactionRepository>();
+            services.AddTransient<IUserRepository,UserRepository>();
 
             services.AddMvc();
             services.AddMediatR(typeof(Startup));
