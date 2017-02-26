@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
@@ -35,7 +34,6 @@ namespace DataAccess
             if(!string.IsNullOrEmpty(phrase)){
                 result = result.Where(m =>m.Description.Contains(phrase));
                 result = result.Where(m=> m.Tags == null || m.Tags.Any(n=>n.Contains(phrase)));
-
             }
             
 

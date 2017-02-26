@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using Handlers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -43,9 +44,21 @@ namespace Api
 
         [Route("import")]
         [HttpPost]
-        public IActionResult ImportTransactions()
+        public IActionResult ImportTransactions(char separator)
         {
-            return Ok(Request.Form.Files[0].FileName);
+            string inputContent;
+            using (StreamReader inputStreamReader = new StreamReader(Request.Form.Files[0].OpenReadStream()))
+            {
+                inputContent = inputStreamReader.ReadToEnd();
+            }
+
+            var result = _mediator.Send(new PrepareDataForImportRequest()
+            {
+                Separator = separator,
+                FileContent = inputContent
+            });
+
+            return Ok(result);
         }
     }
 
