@@ -23,7 +23,7 @@ namespace Handlers{
             foreach(var transaction in message.Transactions){
                 var entity = new TransactionEntity();
                 entity.UserId=_identity.Id;
-                    
+
                 var headers = message.OrderedHeaders;
                 for(var ii=0; ii< headers.Count;ii++){
                     if(headers[ii].Equals("Amount")){
@@ -42,9 +42,7 @@ namespace Handlers{
                 parsedTransactions.Add(entity);
             }
 
-            foreach(var transaction in parsedTransactions){
-                _transactionRepository.AddTransaction(transaction);
-            }
+            _transactionRepository.AddTransactions(parsedTransactions);
 
             return new ImportTransactionsResponse();
         }

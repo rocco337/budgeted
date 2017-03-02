@@ -9,6 +9,7 @@ namespace DataAccess
     public interface ITransactionRepository
     {
         void AddTransaction(TransactionEntity transaction);
+        void AddTransactions(IList<TransactionEntity> transactions);
 
         IReadOnlyList<TransactionEntity> Search(System.Guid userId, string phrase);
     }
@@ -25,6 +26,13 @@ namespace DataAccess
             var collection = _mongo.GetCollection<TransactionEntity>("TransactionEntity");
 
             collection.InsertOne(transaction);            
+        }
+
+          public void AddTransactions(IList<TransactionEntity> transactions)
+        {
+            var collection = _mongo.GetCollection<TransactionEntity>("TransactionEntity");
+
+            collection.InsertMany(transactions);            
         }
 
         public IReadOnlyList<TransactionEntity> Search(System.Guid userId, string phrase)
