@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Handlers;
@@ -42,9 +43,8 @@ namespace Api
             return Ok(result);
         }
 
-        [Route("import")]
-        [HttpPost]
-        public IActionResult ImportTransactions(char separator)
+        [HttpPost("parse")]
+        public IActionResult ParseTransactions(char separator)
         {
             string inputContent;
             using (StreamReader inputStreamReader = new StreamReader(Request.Form.Files[0].OpenReadStream()))
@@ -60,13 +60,28 @@ namespace Api
 
             return Ok(result);
         }
+
+        [HttpPost("import")]
+        public IActionResult ImportTransactions([FromBody]ImportTransactionsRequest request){
+
+            var result = _mediator.Send(new Handlers.ImportTransactionsRequest(){
+                Transactions = request.Transactions,
+                OrderedHeaders = request.OrderedHeaders
+            });
+
+            return Ok(result);
+        }
     }
 
+    public class ImportTransactionsRequest {
+        public IReadOnlyList<string[]> Transactions{get;set;}
+        public IReadOnlyList<string> OrderedHeaders{get;set;}
+    }
 
     public class TransactionAddRequest
     {
         [Required]
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
 
         [Required]
         public string Description { get; set; }

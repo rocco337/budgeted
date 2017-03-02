@@ -8,7 +8,7 @@ namespace DataAccess
 {
     public interface ITransactionRepository
     {
-        void AddTransaction(System.Guid userId, TransactionEntity transaction);
+        void AddTransaction(TransactionEntity transaction);
 
         IReadOnlyList<TransactionEntity> Search(System.Guid userId, string phrase);
     }
@@ -20,11 +20,11 @@ namespace DataAccess
             _mongo = mongo;
         }
 
-        public void AddTransaction(System.Guid userId, TransactionEntity transaction)
+        public void AddTransaction(TransactionEntity transaction)
         {
             var collection = _mongo.GetCollection<TransactionEntity>("TransactionEntity");
 
-            collection.InsertOne(transaction);
+            collection.InsertOne(transaction);            
         }
 
         public IReadOnlyList<TransactionEntity> Search(System.Guid userId, string phrase)
@@ -47,7 +47,7 @@ namespace DataAccess
         public System.Guid Id { get; set; }
 
         public System.Guid UserId { get; set; }
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
 
         public string Description { get; set; }
 

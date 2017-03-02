@@ -18,7 +18,7 @@ namespace Handlers
 
         public AddTransactionResponse Handle(AddTransactionRequest message)
         {
-            _transactionRepository.AddTransaction(_identity.Id,new TransactionEntity(){
+            _transactionRepository.AddTransaction(new TransactionEntity(){
                 Amount = message.Amount,
                 Description = message.Description,
                 TransactionDate = message.TransactionDate,
@@ -33,14 +33,14 @@ namespace Handlers
     public class AddTransactionResponse{}
     public class AddTransactionRequest : IRequest<AddTransactionResponse>
     {
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
 
         public string Description { get; set; }
 
         public string TransactionDate { get; set; }
 
         public string[] Tags { get; set; }
-        public AddTransactionRequest(decimal amount, string description, string transactionDate, string[] tags)
+        public AddTransactionRequest(double amount, string description, string transactionDate, string[] tags)
         {
             Amount = amount;
             Description = description;

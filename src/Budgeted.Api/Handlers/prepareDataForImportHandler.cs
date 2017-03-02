@@ -13,9 +13,7 @@ namespace Handlers
             var lines = message.FileContent.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             foreach (var line in lines)
             {
-                var columns = line.Split(message.Separator);
-
-                parsedTransactions.Add(columns);
+                parsedTransactions.Add(line.Split(message.Separator));
             }
 
 
