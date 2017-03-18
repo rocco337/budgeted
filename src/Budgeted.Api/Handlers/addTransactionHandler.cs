@@ -1,4 +1,3 @@
-using System;
 using Budgeted.Api;
 using DataAccess;
 using MediatR;
@@ -21,7 +20,7 @@ namespace Handlers
             _transactionRepository.AddTransaction(new TransactionEntity(){
                 Amount = message.Amount,
                 Description = message.Description,
-                TransactionDate = message.TransactionDate,
+                TransactionDate = System.DateTime.Parse(message.TransactionDate),
                 Tags = message.Tags,
                 UserId=_identity.Id
             });

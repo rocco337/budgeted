@@ -1,5 +1,4 @@
 using DataAccess;
-using Handlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +17,8 @@ namespace Budgeted.Api
             var builder = new ConfigurationBuilder()
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
             Configuration = builder.Build();
+            
+            MongoDefaults.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -32,9 +33,9 @@ namespace Budgeted.Api
 
             services.AddSingleton<Identity>(m=>{
                 return new Identity(){
-                    Id=System.Guid.Parse("2da0a626-cb5d-4cb9-8e79-92da1fb1f59a")
+                    Id=System.Guid.Parse("26a6a02d-5dcb-b94c-8e79-92da1fb1f59a")
                 };
-            });
+            });                                                             
             
             services.AddTransient<ITransactionRepository,TransactionRepository>();
             services.AddTransient<IUserRepository,UserRepository>();
@@ -52,8 +53,7 @@ namespace Budgeted.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-
+            }                
         }
     }
 

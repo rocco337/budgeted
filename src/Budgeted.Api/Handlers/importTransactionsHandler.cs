@@ -8,7 +8,7 @@ namespace Handlers{
     public class ImportTransactionsHandler : IRequestHandler<ImportTransactionsRequest, ImportTransactionsResponse>
     {
         ITransactionRepository _transactionRepository;
-                Identity _identity;
+        Identity _identity;
 
         public ImportTransactionsHandler(ITransactionRepository transactionRepository,Identity identity)
         {
@@ -33,7 +33,7 @@ namespace Handlers{
                         entity.Description = transaction[ii];
                     }
                     else if(headers[ii].Equals("CreatedDate")){
-                        entity.TransactionDate = transaction[ii];                        
+                        entity.TransactionDate = DateTime.Parse(transaction[ii]);                        
                     }else{
                         throw new NotImplementedException(headers[ii]);
                     }
